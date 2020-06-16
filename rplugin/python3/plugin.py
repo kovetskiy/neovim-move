@@ -63,6 +63,8 @@ class Main(object):
 
         for buffer in self.vim.get_buffers():
             name = buffer.name
+            if not name:
+                continue
 
             relpath = os.path.relpath(name, os.getcwd())
             if relpath in sources:

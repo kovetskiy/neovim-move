@@ -6,7 +6,10 @@ class Vim:
         self.vim = vim
 
     def get_current_filename(self):
-        return os.path.relpath(self.vim.current.buffer.name, os.getcwd())
+        name = self.vim.current.buffer.name
+        if not name:
+            return ""
+        return os.path.relpath(name, os.getcwd())
 
     def get_buffers(self):
         return self.vim.buffers
