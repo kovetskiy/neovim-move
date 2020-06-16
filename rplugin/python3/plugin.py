@@ -27,7 +27,7 @@ class Main(object):
         self.log.setLevel(logging.DEBUG)
         self.log.addHandler(handler)
 
-    @neovim.command('Move', nargs='*')
+    @neovim.command('Move', nargs='*', complete='file')
     def move(self, args):
         if len(args) < 1:
             return
