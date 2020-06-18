@@ -35,12 +35,18 @@ class Main(object):
         inputs = args[:-1]
         output = args[-1]
 
+        current_filename = self.vim.get_current_filename()
         if len(inputs) == 0:
-            filename = self.vim.get_current_filename()
-            if filename == "":
+            if current_filename == "":
                 return
+            inputs = [current_filename]
 
-            inputs = [filename]
+        current_dir = ""
+        if current_filename != "":
+            current_dir = os.path.dirname(current_filename)
+
+        if output.startswith("./") and current_dir != "":
+            output = current_dir + output[1:]
 
         sources = []
         for i in range(len(inputs)):
