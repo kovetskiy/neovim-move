@@ -57,6 +57,16 @@ class PluginTest(unittest.TestCase):
 
         self._test(args, tree, tree_exp, buffers, buffers_exp)
 
+    def test_dir_at(self):
+        args = ['@', 'xs/']
+        tree = ['x', 'dir.x/f.x', 'dir.x/f', 'z/', 'y/a']
+        tree_exp = ['x', 'z/', 'xs/dir.x/f', 'xs/dir.x/f.x', 'y/a']
+
+        buffers = tree
+        buffers_exp = ['x', 'xs/dir.x/f.x', 'xs/dir.x/f', 'z/', 'y/a']
+
+        self._test(args, tree, tree_exp, buffers, buffers_exp, current_filename='dir.x/f.x')
+
     def setUp(self):
         self.basedir = tempfile.mkdtemp()
         os.chdir(self.basedir)

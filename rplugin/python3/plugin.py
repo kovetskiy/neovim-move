@@ -41,7 +41,7 @@ class Main(object):
                 return
             inputs = [current_filename]
 
-        current_dir = ""
+        current_dir = "."
         if current_filename != "":
             current_dir = os.path.dirname(current_filename)
 
@@ -54,6 +54,8 @@ class Main(object):
             if "*" in input:
                 matches = glob.glob(input, recursive=True)
                 sources += matches
+            elif input.startswith("@"):
+                sources += [current_dir + input[1:]]
             else:
                 sources += [input]
 
@@ -94,6 +96,9 @@ class Main(object):
 
     def get_filter(self, dirs):
         def fn(src):
+            if src == ".":
+                return False
+
             for dir in dirs:
                 # do not copy the file because the directory already copied
                 if src.startswith(dir):
