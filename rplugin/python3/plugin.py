@@ -51,11 +51,11 @@ class Main(object):
         sources = []
         for i in range(len(inputs)):
             input = inputs[i]
+            if input.startswith("@"):
+                input = current_dir + input[1:]
             if "*" in input:
                 matches = glob.glob(input, recursive=True)
                 sources += matches
-            elif input.startswith("@"):
-                sources += [current_dir + input[1:]]
             else:
                 sources += [input]
 
